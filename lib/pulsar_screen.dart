@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'pulsar_configuration_widget.dart';
 import 'realtime_chart.dart';
-import 'services/realtime_data_service.dart';
-import 'services/service_locator.dart';
 
 class PulsarScreen extends StatefulWidget {
  
@@ -12,14 +10,13 @@ class PulsarScreen extends StatefulWidget {
 }
 
 class _PulsarScreenState extends State<PulsarScreen> {
-  RealtimeChart _realtimeChart = RealtimeChart(locator<RealtimeDataService>().dataStream);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: <Widget>[
-          Container(height: 150, child: _realtimeChart),
+          Container(height: 150, child: RealtimeChart()),
           SizedBox(
             height: 10,
           ),

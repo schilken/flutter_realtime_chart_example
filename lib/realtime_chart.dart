@@ -18,12 +18,9 @@ import 'package:realtime_chart/util.dart';
 
 import 'app_constants.dart';
 import 'services/realtime_data_service.dart';
+import 'services/service_locator.dart';
 
 class RealtimeChart extends StatefulWidget {
-  final Stream<DataSet> dataStream;
-
-  RealtimeChart(this.dataStream);
-
   @override
   State<StatefulWidget> createState() {
     return RealtimeChartState();
@@ -36,8 +33,9 @@ class RealtimeChartState extends State<RealtimeChart>
 
   static const int VISIBLE_COUNT = 60;
   int _removalCounter = 0;
+  Stream<DataSet> _dataStream = locator<RealtimeDataService>().dataStream;
   StreamSubscription<DataSet> _streamSubscription;
-  
+
   @override
   void dispose() {
     _streamSubscription.cancel();
@@ -48,7 +46,7 @@ class RealtimeChartState extends State<RealtimeChart>
   void initState() {
     print("initState RealtimeChartState");
     _initController();
-    _streamSubscription = widget.dataStream.listen((dataSet) {
+    _streamSubscription = _dataStream.listen((dataSet) {
       //print("dataSet: ${dataSet.y0}");
       addEntry(dataSet.y0, dataSet.y1);
     });
