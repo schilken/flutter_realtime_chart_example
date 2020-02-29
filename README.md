@@ -5,3 +5,6 @@ A flutter sample project using the line_chart of the mp_chart package to display
 
 This project is a starting point for a realtime chart application.
 
+## Screenshot
+
+<img src="images_for_readme/flutter_realtime_chart.png"/>
