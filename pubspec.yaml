@@ -1,5 +1,5 @@
-name: realtime_chart
-description: A new Flutter project.
+name: flutter_realtime_chart_example
+description: A flutter sample project using the line_chart of the mp_chart package to display a scrolling realtime chart - like an oscilloscope.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

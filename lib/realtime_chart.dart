@@ -14,8 +14,8 @@ import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
 import 'package:mp_chart/mp/core/enums/legend_form.dart';
 import 'package:mp_chart/mp/core/highlight/highlight.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
-import 'package:realtime_chart/util.dart';
 
+import 'util.dart';
 import 'app_constants.dart';
 import 'services/realtime_data_service.dart';
 import 'services/service_locator.dart';
