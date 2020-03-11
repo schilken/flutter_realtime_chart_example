@@ -19,14 +19,14 @@ class _ConfigurationWidgetState extends State<ConfigurationWidget> {
   void updateSliderValues(double value) {
     setState(() {
       _sliderValue = value;
-      _dataService.setSliderValue(value);
+      _dataService.setFrequency(value);
     });
   }
 
   setSliderRangeValues(RangeValues range) {
     setState(() {
       _sliderRange = range;
-      _dataService.setSliderRangeValues(range);
+      _dataService.setValueRange(range);
     });
   }
 

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'realtime_data_service.dart';
 
 class RealtimeDataServiceImpl extends RealtimeDataService {
-  double _sliderValue = 0.5;
-  RangeValues _sliderRange = RangeValues(25, 75);
+  double _frequencyValue = 0.5;
+  RangeValues _valueRange = RangeValues(25, 75);
   double _y0 = 0;
   double _y1 = 0;
   StreamController<DataSet> _streamController;
@@ -19,28 +19,28 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   }
 
   double get _amplitude {
-    return _sliderRange.end - _sliderRange.start;
+    return _valueRange.end - _valueRange.start;
   }
 
   RealtimeDataServiceImpl() {
     print("new RealtimeDataServiceImpl");
   }
 
-  void nextSin() {
-    _lastValue += _sliderValue;
+  void nextSinus() {
+    _lastValue += _frequencyValue;
     double yNorm = sin(_lastValue);
     double yNormPositive = (yNorm + 1.0) / 2.0;
-    if (_sliderValue == 0.7) {
+    if (_frequencyValue == 0.7) {
       yNormPositive = 1.0;
     }
-    _y0 = _sliderRange.start + yNormPositive * _amplitude;
-    _y1 = _sliderRange.start + (1 - yNormPositive) * _amplitude;
+    _y0 = _valueRange.start + yNormPositive * _amplitude;
+    _y1 = _valueRange.start + (1 - yNormPositive) * _amplitude;
   }
 
   void tick(_) {
-    nextSin();
-    _streamController.add(DataSet(_y0, _y1, _sliderValue,
-        _sliderRange)); // Ask stream to send counter values as event.
+    nextSinus();
+    _streamController.add(DataSet(_y0, _y1, _frequencyValue,
+        _valueRange)); // Ask stream to send counter values as event.
   }
 
   @override
@@ -70,13 +70,13 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   }
 
   @override
-  void setSliderValue(double value) {
-    _sliderValue = value;
+  void setFrequency(double value) {
+    _frequencyValue = value;
   }
 
   @override
-  void setSliderRangeValues(RangeValues range) {
-    _sliderRange = range;
+  void setValueRange(RangeValues range) {
+    _valueRange = range;
   }
 
   @override

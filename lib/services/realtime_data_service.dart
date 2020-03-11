@@ -15,9 +15,9 @@ abstract class RealtimeDataService {
 
   Stream<DataSet> dataStream;
  
-  void setSliderValue(double value);
+  void setFrequency(double value);
 
-  void setSliderRangeValues(RangeValues range);
+  void setValueRange(RangeValues range);
 
   void closeDataStream();
 
