@@ -14,13 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryTextTheme: TextTheme(
-          title: TextStyle(color: kSliderColor),
-        ),
-      ),
       home: MyHomePage(title: 'Flutter Realtime Chart'),
     );
   }
@@ -37,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   RealtimeDataService _dataService = locator<RealtimeDataService>();
- 
+
   void _togglePulsar() {
     if (_dataService.isRunning) {
       _dataService.stop();
@@ -56,14 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: kBackgroundColorDark,
       body: PulsarScreen(),
-          
       floatingActionButton: FloatingActionButton(
         onPressed: _togglePulsar,
         child: Icon(
-                  _dataService.isRunning ? Icons.pause : Icons.play_arrow,
-                  color: kBackgroundColorDark,
-                ),
-      ), 
+          _dataService.isRunning ? Icons.pause : Icons.play_arrow,
+          color: kBackgroundColorDark,
+        ),
+      ),
     );
   }
 }

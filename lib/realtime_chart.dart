@@ -103,7 +103,7 @@ class RealtimeChartState extends State<RealtimeChart>
   }
 
   void _initController() {
-    print("_initController");
+    // print("_initController");
     var desc = Description()..enabled = false;
     controller = LineChartController(
         legendSettingFunction: (legend, controller) {

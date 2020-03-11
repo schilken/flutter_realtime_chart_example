@@ -14,16 +14,10 @@ class DataSet {
 abstract class RealtimeDataService {
 
   Stream<DataSet> dataStream;
- 
-  void setFrequency(double value);
-
-  void setValueRange(RangeValues range);
-
   void closeDataStream();
-
+  void setFrequency(double value);
+  void setValueRange(RangeValues range);
   void start();
-
   void stop();
-
   bool isRunning;
   }

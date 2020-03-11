@@ -23,7 +23,7 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   }
 
   RealtimeDataServiceImpl() {
-    print("new RealtimeDataServiceImpl");
+    //print("new RealtimeDataServiceImpl");
   }
 
   void nextSinus() {
