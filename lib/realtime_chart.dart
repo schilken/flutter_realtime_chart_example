@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mp_chart/mp/chart/line_chart.dart';
 import 'package:mp_chart/mp/controller/line_chart_controller.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
@@ -29,12 +28,12 @@ class RealtimeChart extends StatefulWidget {
 
 class RealtimeChartState extends State<RealtimeChart>
     implements OnChartValueSelectedListener {
-  LineChartController controller;
+  late LineChartController controller;
 
   static const int VISIBLE_COUNT = 60;
   int _removalCounter = 0;
   Stream<DataSet> _dataStream = locator<RealtimeDataService>().dataStream;
-  StreamSubscription<DataSet> _streamSubscription;
+  late StreamSubscription<DataSet> _streamSubscription;
 
   @override
   void dispose() {
@@ -150,7 +149,7 @@ class RealtimeChartState extends State<RealtimeChart>
         maxVisibleCount: 60,
         infoBgColor: kBackgroundColor);
 
-    LineData data = controller?.data;
+    LineData data = controller.data;
 
     if (data == null) {
       data = LineData();

@@ -9,8 +9,8 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   RangeValues _valueRange = RangeValues(25, 75);
   double _y0 = 0;
   double _y1 = 0;
-  StreamController<DataSet> _streamController;
-  Timer _timer;
+  late StreamController<DataSet> _streamController;
+  Timer? _timer;
   double _lastValue = 0;
 
   bool get isRunning {
@@ -53,7 +53,7 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   @override
   void stop() {
     if (_timer != null) {
-      _timer.cancel();
+      _timer?.cancel();
       _timer = null;
     }
   }
