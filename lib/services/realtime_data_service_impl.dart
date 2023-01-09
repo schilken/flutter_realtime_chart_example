@@ -9,7 +9,7 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
   RangeValues _valueRange = RangeValues(25, 75);
   double _y0 = 0;
   double _y1 = 0;
-  late StreamController<DataSet> _streamController;
+  StreamController<DataSet>? _streamController;
   Timer? _timer;
   double _lastValue = 0;
 
@@ -39,7 +39,7 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
 
   void tick(_) {
     nextSinus();
-    _streamController.add(DataSet(_y0, _y1, _frequencyValue,
+    _streamController?.add(DataSet(_y0, _y1, _frequencyValue,
         _valueRange)); // Ask stream to send counter values as event.
   }
 
@@ -66,7 +66,7 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
         onCancel: stop,
       );
     }
-    return _streamController.stream;
+    return _streamController!.stream;
   }
 
   @override
@@ -81,6 +81,6 @@ class RealtimeDataServiceImpl extends RealtimeDataService {
 
   @override
   void closeDataStream() {
-    _streamController.close();
+    _streamController?.close();
   }
 }

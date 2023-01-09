@@ -68,7 +68,7 @@ class RealtimeChartState extends State<RealtimeChart>
   }
 
   LineDataSet _createSet(int ix) {
-    LineDataSet set = LineDataSet(null, "y$ix");
+    LineDataSet set = LineDataSet([], "y$ix");
     set.setAxisDependency(AxisDependency.LEFT);
     set.setColor1(ix == 0 ? Colors.red : Colors.orangeAccent);
     set.setCircleColor(ColorUtils.WHITE);
@@ -106,33 +106,39 @@ class RealtimeChartState extends State<RealtimeChart>
     var desc = Description()..enabled = false;
     controller = LineChartController(
         legendSettingFunction: (legend, controller) {
-          legend
-            ..shape = LegendForm.LINE
-            ..typeface = Util.LIGHT
-            ..textColor = ColorUtils.BLUE
-            ..enabled = false;
+          if (legend != null) {
+            legend
+              ..shape = LegendForm.LINE
+              ..typeface = Util.LIGHT
+              ..textColor = ColorUtils.BLUE
+              ..enabled = false;
+          }
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
-            ..typeface = Util.LIGHT
-            ..textColor = ColorUtils.WHITE
-            ..drawGridLines = false
-            ..avoidFirstLastClipping = true
-            ..enabled = false;
+          if (xAxis != null) {
+            xAxis
+              ..typeface = Util.LIGHT
+              ..textColor = ColorUtils.WHITE
+              ..drawGridLines = false
+              ..avoidFirstLastClipping = true
+              ..enabled = false;
+          }
           //xAxis.drawLabels = false;
         },
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
-            ..typeface = Util.LIGHT
-            ..textColor = ColorUtils.BLUE
-            ..drawGridLines = false
-            ..enabled = false;
-          axisLeft.setAxisMaximum(105.0);
-          axisLeft.setAxisMinimum(-5.0);
-          axisLeft.setDrawZeroLine(false);
+          if (axisLeft != null) {
+            axisLeft
+              ..typeface = Util.LIGHT
+              ..textColor = ColorUtils.BLUE
+              ..drawGridLines = false
+              ..enabled = false;
+            axisLeft.setAxisMaximum(105.0);
+            axisLeft.setAxisMinimum(-5.0);
+            axisLeft.setDrawZeroLine(false);
+          }
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = false;
+          axisRight?.enabled = false;
         },
         drawGridBackground: false,
         dragXEnabled: false,
@@ -149,22 +155,19 @@ class RealtimeChartState extends State<RealtimeChart>
         maxVisibleCount: 60,
         infoBgColor: kBackgroundColor);
 
-    LineData data = controller.data;
-
-    if (data == null) {
+    if (controller.data != null) {
+      LineData data = controller.data!;
       data = LineData();
       controller.data = data;
-      if (data != null) {
-        ILineDataSet set0 = data.getDataSetByIndex(0);
-        if (set0 == null) {
+      if (data.getDataSetByIndex(0) != null) {
+        ILineDataSet set0 = data.getDataSetByIndex(0)!;
           print("createSet");
           set0 = _createSet(0);
           data.addDataSet(set0);
           data.addDataSet(_createSet(1));
           for (var nn = 0; nn < VISIBLE_COUNT; nn++) {
             addWithRemove(set0, data, 50, 50);
-            //controller.moveViewToX(data.getEntryCount().toDouble());
-          }
+          //controller.moveViewToX(data.getEntryCount().toDouble());
         }
       }
     }
@@ -173,18 +176,20 @@ class RealtimeChartState extends State<RealtimeChart>
   @override
   void onNothingSelected() {}
 
-  @override
-  void onValueSelected(Entry e, Highlight h) {}
-
   void addEntry(double y0, double y1) {
     //print("y: ${y0.toInt()} ${y1.toInt()}");
-    LineData data = controller.data;
+    LineData? data = controller.data;
     if (data != null) {
-      ILineDataSet set0 = data.getDataSetByIndex(0);
+      ILineDataSet set0 = data.getDataSetByIndex(0)!; // TODO check ok?
       addWithRemove(set0, data, y0, y1);
       controller.setVisibleXRangeMaximum(VISIBLE_COUNT.toDouble());
       controller.moveViewToX(data.getEntryCount().toDouble());
       controller.state?.setStateIfNotDispose();
     }
+  }
+  
+  @override
+  void onValueSelected(Entry? e, Highlight? h) {
+    // TODO: implement onValueSelected
   }
 }
