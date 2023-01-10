@@ -46,7 +46,6 @@ class RealtimeChartState extends State<RealtimeChart>
     print("initState RealtimeChartState");
     _initController();
     _streamSubscription = _dataStream.listen((dataSet) {
-      //print("dataSet: ${dataSet.y0}");
       addEntry(dataSet.y0, dataSet.y1);
     });
     super.initState();
@@ -105,71 +104,65 @@ class RealtimeChartState extends State<RealtimeChart>
     // print("_initController");
     var desc = Description()..enabled = false;
     controller = LineChartController(
-        legendSettingFunction: (legend, controller) {
-          if (legend != null) {
-            legend
-              ..shape = LegendForm.LINE
-              ..typeface = Util.LIGHT
-              ..textColor = ColorUtils.BLUE
-              ..enabled = false;
-          }
-        },
-        xAxisSettingFunction: (xAxis, controller) {
-          if (xAxis != null) {
-            xAxis
-              ..typeface = Util.LIGHT
-              ..textColor = ColorUtils.WHITE
-              ..drawGridLines = false
-              ..avoidFirstLastClipping = true
-              ..enabled = false;
-          }
-          //xAxis.drawLabels = false;
-        },
-        axisLeftSettingFunction: (axisLeft, controller) {
-          if (axisLeft != null) {
-            axisLeft
-              ..typeface = Util.LIGHT
-              ..textColor = ColorUtils.BLUE
-              ..drawGridLines = false
-              ..enabled = false;
-            axisLeft.setAxisMaximum(105.0);
-            axisLeft.setAxisMinimum(-5.0);
-            axisLeft.setDrawZeroLine(false);
-          }
-        },
-        axisRightSettingFunction: (axisRight, controller) {
-          axisRight?.enabled = false;
-        },
-        drawGridBackground: false,
-        dragXEnabled: false,
-        dragYEnabled: false,
-        scaleXEnabled: true,
-        scaleYEnabled: false,
-        backgroundColor: kBackgroundColor,
-        selectionListener: this,
-        pinchZoomEnabled: false,
-        autoScaleMinMaxEnabled: false,
-        minOffset: 0,
-        description: desc,
-        infoTextColor: kSliderColor,
-        maxVisibleCount: 60,
-        infoBgColor: kBackgroundColor);
-
-    if (controller.data != null) {
-      LineData data = controller.data!;
-      data = LineData();
-      controller.data = data;
-      if (data.getDataSetByIndex(0) != null) {
-        ILineDataSet set0 = data.getDataSetByIndex(0)!;
-          print("createSet");
-          set0 = _createSet(0);
-          data.addDataSet(set0);
-          data.addDataSet(_createSet(1));
-          for (var nn = 0; nn < VISIBLE_COUNT; nn++) {
-            addWithRemove(set0, data, 50, 50);
-          //controller.moveViewToX(data.getEntryCount().toDouble());
+      legendSettingFunction: (legend, controller) {
+        if (legend != null) {
+          legend
+            ..shape = LegendForm.LINE
+            ..typeface = Util.LIGHT
+            ..textColor = ColorUtils.BLUE
+            ..enabled = false;
         }
-      }
+      },
+      xAxisSettingFunction: (xAxis, controller) {
+        if (xAxis != null) {
+          xAxis
+            ..typeface = Util.LIGHT
+            ..textColor = ColorUtils.WHITE
+            ..drawGridLines = false
+            ..avoidFirstLastClipping = true
+            ..enabled = false;
+        }
+        //xAxis.drawLabels = false;
+      },
+      axisLeftSettingFunction: (axisLeft, controller) {
+        if (axisLeft != null) {
+          axisLeft
+            ..typeface = Util.LIGHT
+            ..textColor = ColorUtils.BLUE
+            ..drawGridLines = false
+            ..enabled = false;
+          axisLeft.setAxisMaximum(105.0);
+          axisLeft.setAxisMinimum(-5.0);
+          axisLeft.setDrawZeroLine(false);
+        }
+      },
+      axisRightSettingFunction: (axisRight, controller) {
+        axisRight?.enabled = false;
+      },
+      drawGridBackground: false,
+      dragXEnabled: false,
+      dragYEnabled: false,
+      scaleXEnabled: true,
+      scaleYEnabled: false,
+      backgroundColor: kBackgroundColor,
+      selectionListener: this,
+      pinchZoomEnabled: false,
+      autoScaleMinMaxEnabled: false,
+      minOffset: 0,
+      description: desc,
+      infoTextColor: kSliderColor,
+      maxVisibleCount: 60,
+      infoBgColor: kBackgroundColor,
+    );
+
+    LineData data = LineData();
+    controller.data = data;
+    ILineDataSet set0 = _createSet(0);
+    data.addDataSet(set0);
+    data.addDataSet(_createSet(1));
+    for (var nn = 0; nn < VISIBLE_COUNT; nn++) {
+      addWithRemove(set0, data, 50, 50);
+      //controller.moveViewToX(data.getEntryCount().toDouble());
     }
   }
 
@@ -187,7 +180,7 @@ class RealtimeChartState extends State<RealtimeChart>
       controller.state?.setStateIfNotDispose();
     }
   }
-  
+
   @override
   void onValueSelected(Entry? e, Highlight? h) {
     // TODO: implement onValueSelected
